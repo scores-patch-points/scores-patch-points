@@ -254,10 +254,18 @@ another holon's job; if you need it done, assign it in the owning holon.
 ### opencode-fold — the agent's own doorway
 *pkg `opencode` · `scores-patch-points/opencode-fold`*
 
-- **Does:** a thin fork of the opencode AI coding agent whose **only delta** is
-  the doorway plugin (how this environment reaches The Fold's surfaces).
-- **Doesn't include:** any other divergence from upstream opencode.
-- **Finds at:** `AGENTS.md`; the doorway plugin.
+- **Does:** a thin fork of the opencode AI coding agent whose delta is **add-only**
+  and guarded (`fold-sync.sh` fails if it deletes an upstream line or leaves the
+  allowed list): the doorway plugin (how this environment reaches The Fold's
+  surfaces) and the **fold UI** — the side tabs the doorway feeds (Fold/Sent/
+  Worktree/Holodeck/Perceive/Plans), among them the **Remember** window over the
+  operator's standing stores.
+- **Doesn't include:** any change to an upstream line (the delta only ever adds);
+  the stores themselves (their content is the operator's — the fork only shows
+  and appends them); the readers that decide what a store buys (that is khora).
+- **Finds at:** `AGENTS.md`; `UPSTREAM.md` (the delta contract and its falsifying
+  control); `packages/core/src/plugin/fold.ts` (the doorway plugin),
+  `packages/gui-extensions/src/fold/` (the fold UI, incl. `remember.tsx`).
 
 ---
 
@@ -318,7 +326,7 @@ drafts under `clovenbradshaw-ctrl`.
 | sealed-writing / extension work | **hyphae** | seal what you write |
 | a web fetch/search gateway change | **holodeck-proxy** | the no-record gateway |
 | sample readings for a demo | **holodeck-samples** | it carries the readings |
-| a doorway/plugin change to the agent | **opencode-fold** | the only delta is the doorway |
+| a doorway/plugin or fold-UI change to the agent | **opencode-fold** | the delta is the add-only doorway + its fold UI |
 | frozen session results / notes | an **archive** (L3) | memory is read-only |
 | a public release | **scores-patch-points** | the formal account |
 | in-progress / experimental work | **clovenbradshaw-ctrl** | the draft account |
@@ -334,6 +342,7 @@ drafts under `clovenbradshaw-ctrl`.
 | standing reading rules (surface side) | `khora/content-rules.json` — served at `GET /content-rules` |
 | the agent policy (swarm protocol) | `~/.config/opencode/AGENTS.md` |
 | facts about the operator and their world | `~/.config/opencode/user-memory.md` ↔ `holodeck/user-memory.json` |
+| what the system may read on demand, and the prompts attached to an ask | `~/.config/opencode/user-refs.md`, `~/.config/opencode/system-prompts.json` (agent side; written from the Remember window, injected only when an ask bears on them — **no surface mirror yet**) |
 | derived rules for surface material | `khora/heimdall-derived-rules.json` |
 | how the repos relate (vendoring direction) | `holodeck/VENDORING.md` |
 | the doors / ports | `khora/docs/PORTS.md` |
