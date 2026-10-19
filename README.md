@@ -67,7 +67,7 @@ L0  THE FOLD  (the commons — the whole system)
 │   ├── hyphae            seal what you write
 │   ├── holodeck-proxy    no-record web gateway
 │   ├── holodeck-samples  sample source sets (readings)
-│   └── openfold        the agent's own doorway
+│   └── foldcode        the agent's own doorway
 │
 ├── L3  THE ARCHIVES  (memory: frozen, read-only, superseded-not-edited)
 │   ├── khora-archive                     frozen prior khora
@@ -251,8 +251,8 @@ another holon's job; if you need it done, assign it in the owning holon.
   browser.
 - **Finds at:** `README.md`; `titanic-1912/`.
 
-### openfold — the agent's own doorway
-*pkg `opencode` · `scores-patch-points/openfold`*
+### foldcode — the agent's own doorway
+*pkg `opencode` · `scores-patch-points/foldcode`*
 
 - **Does:** a thin fork of the opencode AI coding agent whose delta is **add-only**
   and guarded (`fold-sync.sh` fails if it deletes an upstream line or leaves the
@@ -326,7 +326,7 @@ drafts under `clovenbradshaw-ctrl`.
 | sealed-writing / extension work | **hyphae** | seal what you write |
 | a web fetch/search gateway change | **holodeck-proxy** | the no-record gateway |
 | sample readings for a demo | **holodeck-samples** | it carries the readings |
-| a doorway/plugin or fold-UI change to the agent | **openfold** | the delta is the add-only doorway + its fold UI |
+| a doorway/plugin or fold-UI change to the agent | **foldcode** | the delta is the add-only doorway + its fold UI |
 | frozen session results / notes | an **archive** (L3) | memory is read-only |
 | a public release | **scores-patch-points** | the formal account |
 | in-progress / experimental work | **clovenbradshaw-ctrl** | the draft account |
