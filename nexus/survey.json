@@ -1,6 +1,6 @@
 {
  "schema": "NexusSurvey@1",
- "date": "2026-11-18",
+ "date": "2026-11-18 (refreshed after the kits were installed)",
  "method": "gh api, read-only, default branch of each public scores-patch-points repo",
  "repos": {
   "penelope": {
@@ -23,7 +23,7 @@
   },
   "pharos": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -32,7 +32,7 @@
   },
   "scholia": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -41,7 +41,7 @@
   },
   "janus": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -50,7 +50,7 @@
   },
   "heimdall": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -59,7 +59,7 @@
   },
   "the-fold": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -68,7 +68,7 @@
   },
   "foldcode": {
    "defaultBranch": "fold",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": true,
    "readme": true,
    "brief": false,
@@ -77,7 +77,7 @@
   },
   "holodeck": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -86,7 +86,7 @@
   },
   "Zenodotus": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -95,7 +95,7 @@
   },
   "holodeck-samples": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -104,7 +104,7 @@
   },
   "hyphae": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -113,7 +113,7 @@
   },
   "mnemosyne": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -122,7 +122,7 @@
   },
   "Alhazen": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -131,7 +131,7 @@
   },
   "holodeck-proxy": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -140,7 +140,7 @@
   },
   "eodb": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
@@ -149,7 +149,7 @@
   },
   "scores-patch-points": {
    "defaultBranch": "main",
-   "claudeMd": false,
+   "claudeMd": true,
    "agentsMd": false,
    "readme": true,
    "brief": false,
