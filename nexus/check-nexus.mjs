@@ -9,12 +9,13 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { generate, load } from "./gen-map.mjs";
+import { generateKits, readKits } from "./gen-kits.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
 const LEVELS = new Set(["L1", "L2-surface", "L2-satellite", "L3", "map"]);
 
-export function checkNexus({ template, cards, manifest, survey, readme, liveNames = null }) {
+export function checkNexus({ template, cards, manifest, survey, readme, liveNames = null, kits = null }) {
   const out = [];
   const repos = manifest.repos ?? [], names = repos.map((r) => r.name);
   const dup = names.filter((n, i) => names.indexOf(n) !== i);
@@ -44,13 +45,18 @@ export function checkNexus({ template, cards, manifest, survey, readme, liveName
   let generated = null;
   try { generated = generate({ template, cards, manifest, survey }); } catch (e) { out.push(`generate: ${e.message}`); }
   if (generated !== null && generated !== readme) out.push("README.md differs from what `node nexus/gen-map.mjs` generates: run `npm run map` (never edit the README by hand)");
+  if (kits) {
+    const want = generateKits({ template, cards, manifest, survey });
+    for (const n of Object.keys(want)) if (kits[n] !== want[n]) out.push(`kit ${n}: nexus/kits/${n}/CLAUDE.md is ${kits[n] == null ? "missing" : "out of date"}: run \`npm run kits\``);
+    for (const n of Object.keys(kits)) if (!(n in want)) out.push(`kit ${n}: no longer needed (the repo has a CLAUDE.md, is private or is not on the map)`);
+  }
   if (liveNames) for (const n of liveNames) if (!known.has(n)) out.push(`repo ${n} exists in the org but is not on the map`);
   return out;
 }
 
 export function checkFiles({ liveNames = null } = {}) {
   const l = load();
-  return checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), liveNames });
+  return checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), liveNames, kits: readKits() });
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(process.argv[1])}`).href) {
