@@ -418,22 +418,22 @@ Where the nexus stands: a read-only survey of the public repos on 2026-11-18 (`n
 | repo | CLAUDE.md | BRIEF | CI | gate named | main protected | door declared |
 |---|---|---|---|---|---|---|
 | `khora` | yes | NO | 3 | `npm test` | NO | 2 |
-| `janus` | yes | NO | 0 | typed gap | NO | typed gap |
-| `penelope` | yes | yes | 0 | `npm test` | NO | 2 |
-| `pharos` | yes | NO | 0 | `npm test` | NO | 1 |
-| `holodeck` | yes | NO | 0 | typed gap | NO | typed gap |
-| `the-fold` | yes | NO | 3 | `npm test` | NO | typed gap |
-| `heimdall` | yes | NO | 1 | `npm test` | NO | typed gap |
-| `Alhazen` | yes | NO | 0 | typed gap | NO | typed gap |
-| `Zenodotus` | yes | NO | 1 | typed gap | NO | typed gap |
-| `eodb` | yes | NO | 1 | typed gap | NO | typed gap |
-| `hyphae` | yes | NO | 3 | typed gap | NO | typed gap |
-| `holodeck-proxy` | yes | NO | 0 | typed gap | NO | typed gap |
-| `holodeck-samples` | yes | NO | 0 | typed gap | NO | typed gap |
-| `foldcode` | yes | NO | 29 | typed gap | NO | typed gap |
-| `scholia` | yes | NO | 0 | `KHORA_DIR=../khora npm test` | NO | 1 |
-| `mnemosyne` | yes | NO | 1 | `node --test eotm.test.mjs` | NO | 1 |
-| `scores-patch-points` | yes | NO | 0 | `npm test` | NO | 2 |
+| `janus` | yes | NO | 1 | typed gap | NO | typed gap |
+| `penelope` | yes | yes | 1 | `npm test` | NO | 2 |
+| `pharos` | yes | NO | 1 | `npm test` | NO | 1 |
+| `holodeck` | yes | NO | 1 | typed gap | NO | typed gap |
+| `the-fold` | yes | NO | 4 | `npm test` | NO | typed gap |
+| `heimdall` | yes | NO | 2 | `npm test` | NO | typed gap |
+| `Alhazen` | yes | NO | 1 | typed gap | NO | typed gap |
+| `Zenodotus` | yes | NO | 2 | typed gap | NO | typed gap |
+| `eodb` | yes | NO | 2 | typed gap | NO | typed gap |
+| `hyphae` | yes | NO | 4 | typed gap | NO | typed gap |
+| `holodeck-proxy` | yes | NO | 1 | typed gap | NO | typed gap |
+| `holodeck-samples` | yes | NO | 1 | typed gap | NO | typed gap |
+| `foldcode` | yes | NO | 30 | typed gap | NO | typed gap |
+| `scholia` | yes | NO | 1 | `KHORA_DIR=../khora npm test` | NO | 1 |
+| `mnemosyne` | yes | NO | 2 | `node --test eotm.test.mjs` | NO | 1 |
+| `scores-patch-points` | yes | NO | 1 | `npm test` | NO | 2 |
 
 ---
 

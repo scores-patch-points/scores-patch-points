@@ -1,6 +1,6 @@
 {
  "schema": "NexusSurvey@1",
- "date": "2026-11-18 (refreshed after the kits were installed)",
+ "date": "2026-11-18 (refreshed after the kits and the nexus workflows were installed)",
  "method": "gh api, read-only, default branch of each public scores-patch-points repo",
  "repos": {
   "penelope": {
@@ -9,7 +9,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": true,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "khora": {
@@ -27,7 +27,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "scholia": {
@@ -36,7 +36,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "janus": {
@@ -45,7 +45,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "heimdall": {
@@ -54,7 +54,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 1,
+   "ciWorkflows": 2,
    "mainProtected": false
   },
   "the-fold": {
@@ -63,7 +63,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 3,
+   "ciWorkflows": 4,
    "mainProtected": false
   },
   "foldcode": {
@@ -72,7 +72,7 @@
    "agentsMd": true,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 29,
+   "ciWorkflows": 30,
    "mainProtected": false
   },
   "holodeck": {
@@ -81,7 +81,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "Zenodotus": {
@@ -90,7 +90,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 1,
+   "ciWorkflows": 2,
    "mainProtected": false
   },
   "holodeck-samples": {
@@ -99,7 +99,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "hyphae": {
@@ -108,7 +108,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 3,
+   "ciWorkflows": 4,
    "mainProtected": false
   },
   "mnemosyne": {
@@ -117,7 +117,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 1,
+   "ciWorkflows": 2,
    "mainProtected": false
   },
   "Alhazen": {
@@ -126,7 +126,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "holodeck-proxy": {
@@ -135,7 +135,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   },
   "eodb": {
@@ -144,7 +144,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 1,
+   "ciWorkflows": 2,
    "mainProtected": false
   },
   "scores-patch-points": {
@@ -153,7 +153,7 @@
    "agentsMd": false,
    "readme": true,
    "brief": false,
-   "ciWorkflows": 0,
+   "ciWorkflows": 1,
    "mainProtected": false
   }
  }
