@@ -120,6 +120,15 @@
    "ciWorkflows": 2,
    "mainProtected": false
   },
+  "proteus": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": true,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 1,
+   "mainProtected": false
+  },
   "Alhazen": {
    "defaultBranch": "main",
    "claudeMd": true,
