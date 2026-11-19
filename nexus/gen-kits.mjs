@@ -52,7 +52,8 @@ export function kitFor(repo, { cards, manifest, survey, ruleList }) {
   ].join("\n");
 }
 
-export const needsKit = (repo, survey) => !repo.private && repo.level !== "L3" && survey?.repos?.[repo.name] && survey.repos[repo.name].claudeMd === false;
+// a repo gets a kit when the nexus MANAGES its CLAUDE.md (manifest "kit": "managed", set once the kit is installed) or when the survey found it has none
+export const needsKit = (repo, survey) => !repo.private && repo.level !== "L3" && (repo.kit === "managed" || (survey?.repos?.[repo.name] && survey.repos[repo.name].claudeMd === false));
 
 export function generateKits(l = load(), ruleList = rules()) {
   const out = {};

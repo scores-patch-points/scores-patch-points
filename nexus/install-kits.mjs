@@ -22,7 +22,9 @@ let ok = 0, refused = 0;
 for (const [name, text] of Object.entries(kits)) {
   const branch = gh(`repos/${owner}/${name}`, ".default_branch");
   const surveyed = l.survey.repos[name].defaultBranch;
-  const has = gh(`repos/${owner}/${name}/contents/CLAUDE.md?ref=${branch}`, ".name");
+  const hasB64 = gh(`repos/${owner}/${name}/contents/CLAUDE.md?ref=${branch}`, ".content");
+  const has = hasB64 != null;
+  if (has && Buffer.from(hasB64, "base64").toString("utf8") === text) { console.log(`ALREADY ${name}: CLAUDE.md is the current kit`); ok++; continue; }
   if (!branch) { console.log(`REFUSED ${name}: repo not readable`); refused++; continue; }
   if (branch !== surveyed) { console.log(`REFUSED ${name}: default branch is ${branch}, the survey said ${surveyed}`); refused++; continue; }
   if (has) { console.log(`REFUSED ${name}: already has a CLAUDE.md (never overwritten)`); refused++; continue; }

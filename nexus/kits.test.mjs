@@ -44,3 +44,16 @@ test("a change to a card or to a rule changes the kit (nothing is typed twice), 
   const problems = checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), kits: drifted });
   assert.ok(problems.some((p) => /kit pharos: .*out of date/.test(p)));
 });
+
+test("a repo whose CLAUDE.md the nexus manages keeps its kit after the survey sees the file; the live check catches a missing or hand-edited installed kit", () => {
+  const l = load(), a = generateKits(l);
+  const afterInstall = { ...l.survey, repos: { ...l.survey.repos, pharos: { ...l.survey.repos.pharos, claudeMd: true } } };
+  assert.ok("pharos" in generateKits({ ...l, survey: afterInstall }), "managed: still generated once CLAUDE.md exists");
+  const unmanaged = clone(l.manifest); delete unmanaged.repos.find((r) => r.name === "pharos").kit;
+  assert.ok(!("pharos" in generateKits({ ...l, manifest: unmanaged, survey: afterInstall })), "unmanaged and present: no kit");
+  const readme = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
+  const ok = checkNexus({ ...l, readme, remoteKits: { ...a } });
+  assert.deepEqual(ok, []);
+  assert.ok(checkNexus({ ...l, readme, remoteKits: { ...a, pharos: null } }).some((p) => /pharos: its managed CLAUDE.md is not installed/.test(p)));
+  assert.ok(checkNexus({ ...l, readme, remoteKits: { ...a, pharos: a.pharos + "x" } }).some((p) => /pharos: its CLAUDE.md differs from the generated kit/.test(p)));
+});

@@ -15,7 +15,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
 const LEVELS = new Set(["L1", "L2-surface", "L2-satellite", "L3", "map"]);
 
-export function checkNexus({ template, cards, manifest, survey, readme, liveNames = null, kits = null }) {
+export function checkNexus({ template, cards, manifest, survey, readme, liveNames = null, kits = null, remoteKits = null }) {
   const out = [];
   const repos = manifest.repos ?? [], names = repos.map((r) => r.name);
   const dup = names.filter((n, i) => names.indexOf(n) !== i);
@@ -25,6 +25,7 @@ export function checkNexus({ template, cards, manifest, survey, readme, liveName
     const at = `repo ${r.name}`;
     for (const k of ["account", "level", "summary", "placement"]) if (!r[k]) out.push(`${at}: no "${k}"`);
     if (r.level && !LEVELS.has(r.level)) out.push(`${at}: unknown level "${r.level}"`);
+    if (r.kit != null && r.kit !== "managed") out.push(`${at}: "kit" must be "managed" or absent`);
     if (!Array.isArray(r.doors)) out.push(`${at}: "doors" must be a list (empty is a typed gap, shown as such)`);
     if (!r.gate || !("cmd" in r.gate)) out.push(`${at}: no "gate" ({ cmd } or { cmd: null, why })`);
     else if (r.gate.cmd == null && !r.gate.why) out.push(`${at}: gate is null with no reason: a gap must say why`);
@@ -50,13 +51,22 @@ export function checkNexus({ template, cards, manifest, survey, readme, liveName
     for (const n of Object.keys(want)) if (kits[n] !== want[n]) out.push(`kit ${n}: nexus/kits/${n}/CLAUDE.md is ${kits[n] == null ? "missing" : "out of date"}: run \`npm run kits\``);
     for (const n of Object.keys(kits)) if (!(n in want)) out.push(`kit ${n}: no longer needed (the repo has a CLAUDE.md, is private or is not on the map)`);
   }
+  if (remoteKits) {
+    const want = generateKits({ template, cards, manifest, survey });
+    for (const n of Object.keys(want)) {
+      const repo = repos.find((r) => r.name === n);
+      if (repo?.kit !== "managed") continue;
+      if (remoteKits[n] == null) out.push(`repo ${n}: its managed CLAUDE.md is not installed`);
+      else if (remoteKits[n] !== want[n]) out.push(`repo ${n}: its CLAUDE.md differs from the generated kit (a hand edit, or the kit moved on): reinstall or update the manifest`);
+    }
+  }
   if (liveNames) for (const n of liveNames) if (!known.has(n)) out.push(`repo ${n} exists in the org but is not on the map`);
   return out;
 }
 
-export function checkFiles({ liveNames = null } = {}) {
+export function checkFiles({ liveNames = null, remoteKits = null } = {}) {
   const l = load();
-  return checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), liveNames, kits: readKits() });
+  return checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), liveNames, kits: readKits(), remoteKits });
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(process.argv[1])}`).href) {
@@ -65,7 +75,14 @@ if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(proces
     liveNames = JSON.parse(execFileSync("gh", ["repo", "list", "scores-patch-points", "--limit", "100", "--json", "name,isArchived"], { encoding: "utf8" })).filter((r) => !r.isArchived).map((r) => r.name);
     console.log(`nexus: ${liveNames.length} public repos in the org (live)`);
   }
-  const problems = checkFiles({ liveNames });
+  let remoteKits = null;
+  if (liveNames) {
+    remoteKits = {};
+    for (const r of load().manifest.repos) if (r.kit === "managed") {
+      try { remoteKits[r.name] = Buffer.from(execFileSync("gh", ["api", `repos/scores-patch-points/${r.name}/contents/CLAUDE.md`, "--jq", ".content"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }), "base64").toString("utf8"); } catch { remoteKits[r.name] = null; }
+    }
+  }
+  const problems = checkFiles({ liveNames, remoteKits });
   if (problems.length) { console.error(`nexus: ${problems.length} problem(s)\n` + problems.map((p) => "  " + p).join("\n")); process.exit(1); }
   console.log("nexus: the map matches its manifest, cards and survey" + (liveNames ? ", and every public repo of the org is on it" : ""));
 }
