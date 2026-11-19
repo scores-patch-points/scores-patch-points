@@ -24,7 +24,9 @@ test("every workflow is named nexus, checks out, and has the kit-freshness step 
     assert.equal(t.includes("CLAUDE.md is the generated kit"), r.kit === "managed", `${r.name}: kit step iff managed`);
     if (r.kit === "managed") assert.ok(t.includes(KIT_URL(r.name)), `${r.name}: fetches its own kit`);
   }
-  assert.ok(!ciFor(l.manifest.repos.find((r) => r.name === "penelope")).includes("generated kit"), "penelope keeps its own CLAUDE.md");
+  const pen = ciFor(l.manifest.repos.find((r) => r.name === "penelope"));
+  assert.ok(!pen.includes("generated kit"), "penelope keeps its own CLAUDE.md");
+  assert.ok(pen.includes("nexus block in CLAUDE.md is the generated block"), "penelope checks only its block");
 });
 test("the gate runs only where it was verified in a clean checkout; elsewhere it is a typed gap with its reason, never a vacuous pass", () => {
   const l = load(), by = (n) => ciFor(l.manifest.repos.find((r) => r.name === n));

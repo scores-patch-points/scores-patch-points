@@ -9,14 +9,14 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { generate, load } from "./gen-map.mjs";
-import { generateKits, readKits } from "./gen-kits.mjs";
+import { generateKits, readKits, generateBlocks, readBlocks, blockOf } from "./gen-kits.mjs";
 import { generateCi, readCi } from "./gen-ci.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
 const LEVELS = new Set(["L1", "L2-surface", "L2-satellite", "L3", "map"]);
 
-export function checkNexus({ template, cards, manifest, survey, readme, liveNames = null, kits = null, remoteKits = null, ci = null, remoteCi = null }) {
+export function checkNexus({ template, cards, manifest, survey, readme, liveNames = null, kits = null, remoteKits = null, ci = null, remoteCi = null, blocks = null, remoteBlocks = null }) {
   const out = [];
   const repos = manifest.repos ?? [], names = repos.map((r) => r.name);
   const dup = names.filter((n, i) => names.indexOf(n) !== i);
@@ -28,7 +28,7 @@ export function checkNexus({ template, cards, manifest, survey, readme, liveName
     if (r.level && !LEVELS.has(r.level)) out.push(`${at}: unknown level "${r.level}"`);
     if (r.ci != null && (r.ci.workflow !== "managed" || typeof r.ci.gate !== "boolean")) out.push(`${at}: "ci" must be { workflow: "managed", gate: true|false, gateWhy }`);
     if (r.ci?.gate && !r.gate?.cmd) out.push(`${at}: ci.gate is true but the manifest names no gate command`);
-    if (r.kit != null && r.kit !== "managed") out.push(`${at}: "kit" must be "managed" or absent`);
+    if (r.kit != null && r.kit !== "managed" && r.kit !== "block") out.push(`${at}: "kit" must be "managed", "block" or absent`);
     if (!Array.isArray(r.doors)) out.push(`${at}: "doors" must be a list (empty is a typed gap, shown as such)`);
     if (!r.gate || !("cmd" in r.gate)) out.push(`${at}: no "gate" ({ cmd } or { cmd: null, why })`);
     else if (r.gate.cmd == null && !r.gate.why) out.push(`${at}: gate is null with no reason: a gap must say why`);
@@ -75,13 +75,24 @@ export function checkNexus({ template, cards, manifest, survey, readme, liveName
       else if (remoteKits[n] !== want[n]) out.push(`repo ${n}: its CLAUDE.md differs from the generated kit (a hand edit, or the kit moved on): reinstall or update the manifest`);
     }
   }
+  if (blocks) {
+    const want = generateBlocks({ template, cards, manifest, survey });
+    for (const n of Object.keys(want)) if (blocks[n] !== want[n]) out.push(`block ${n}: nexus/blocks/${n}.md is ${blocks[n] == null ? "missing" : "out of date"}: run \`npm run kits\``);
+  }
+  if (remoteBlocks) {
+    const want = generateBlocks({ template, cards, manifest, survey });
+    for (const n of Object.keys(want)) {
+      if (remoteBlocks[n] == null) out.push(`repo ${n}: its CLAUDE.md has no nexus block`);
+      else if (blockOf(remoteBlocks[n]) !== want[n]) out.push(`repo ${n}: the nexus block in its CLAUDE.md differs from the generated block`);
+    }
+  }
   if (liveNames) for (const n of liveNames) if (!known.has(n)) out.push(`repo ${n} exists in the org but is not on the map`);
   return out;
 }
 
-export function checkFiles({ liveNames = null, remoteKits = null, remoteCi = null } = {}) {
+export function checkFiles({ liveNames = null, remoteKits = null, remoteCi = null, remoteBlocks = null } = {}) {
   const l = load();
-  return checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), liveNames, kits: readKits(), remoteKits, ci: readCi(), remoteCi });
+  return checkNexus({ ...l, readme: fs.readFileSync(path.join(ROOT, "README.md"), "utf8"), liveNames, kits: readKits(), remoteKits, ci: readCi(), remoteCi, blocks: readBlocks(), remoteBlocks });
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(process.argv[1])}`).href) {
@@ -104,7 +115,14 @@ if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(proces
       try { remoteCi[r.name] = Buffer.from(execFileSync("gh", ["api", `repos/scores-patch-points/${r.name}/contents/.github/workflows/nexus.yml`, "--jq", ".content"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }), "base64").toString("utf8"); } catch { remoteCi[r.name] = null; }
     }
   }
-  const problems = checkFiles({ liveNames, remoteKits, remoteCi });
+  let remoteBlocks = null;
+  if (liveNames) {
+    remoteBlocks = {};
+    for (const r of load().manifest.repos) if (r.kit === "block") {
+      try { remoteBlocks[r.name] = Buffer.from(execFileSync("gh", ["api", `repos/scores-patch-points/${r.name}/contents/CLAUDE.md`, "--jq", ".content"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }), "base64").toString("utf8"); } catch { remoteBlocks[r.name] = null; }
+    }
+  }
+  const problems = checkFiles({ liveNames, remoteKits, remoteCi, remoteBlocks });
   if (problems.length) { console.error(`nexus: ${problems.length} problem(s)\n` + problems.map((p) => "  " + p).join("\n")); process.exit(1); }
   console.log("nexus: the map matches its manifest, cards and survey" + (liveNames ? ", and every public repo of the org is on it" : ""));
 }

@@ -55,6 +55,53 @@ export function kitFor(repo, { cards, manifest, survey, ruleList }) {
 // a repo gets a kit when the nexus MANAGES its CLAUDE.md (manifest "kit": "managed", set once the kit is installed) or when the survey found it has none
 export const needsKit = (repo, survey) => !repo.private && repo.level !== "L3" && (repo.kit === "managed" || (survey?.repos?.[repo.name] && survey.repos[repo.name].claudeMd === false));
 
+// Repos that keep their OWN CLAUDE.md (manifest "kit": "block") carry only a marked, generated block inside it; the rest of the file stays the repo's own.
+export const BEGIN = "<!-- nexus:begin (generated from scores-patch-points/scores-patch-points nexus/blocks; do not edit between the markers) -->";
+export const END = "<!-- nexus:end -->";
+export function blockFor(repo, { survey, ruleList }) {
+  const branch = survey?.repos?.[repo.name]?.defaultBranch ?? "main";
+  const doors = repo.doors?.length ? repo.doors.map((d) => `  - \`${d}\``).join("\n") : "  - TYPED GAP: no door is declared. Say so; do not guess one.";
+  const gate = repo.gate?.cmd ? `\`${repo.gate.cmd}\`` : `TYPED GAP (${repo.gate?.why ?? "not stated"}). Say so; do not claim it passes.`;
+  const sibs = repo.siblings?.length ? repo.siblings.map((s) => `\`${s}\``).join(", ") : "none declared";
+  return [
+    BEGIN,
+    `## The nexus: where this repo sits`,
+    `You are in one repo of the **nexus** (\`scores-patch-points\`): an interconnected body with **no wrong door**. The map: ${MAP_URL}. This repo: level \`${repo.level}\`, ${repo.summary}. Default branch \`${branch}\`.`,
+    `- Doors:`,
+    doors,
+    `- Gate (run it before you finish): ${gate}`,
+    `- Siblings: ${sibs}`,
+    `- Research rules and what is established: ${BRIEF_URL}.`,
+    "",
+    "Rules in every repo of the nexus:",
+    ...ruleList.map((r, i) => `${i + 1}. ${r.rule}`),
+    END,
+    "",
+  ].join("\n");
+}
+
+// put (or replace) the block in an existing file: right after its first heading line; everything else is untouched
+export function withBlock(text, block) {
+  const b = text.indexOf(BEGIN), e = text.indexOf(END);
+  if (b >= 0 && e > b) return text.slice(0, b) + block + text.slice(e + END.length).replace(/^\n/, "");
+  const lines = text.split("\n"), h = lines.findIndex((l) => l.startsWith("# "));
+  lines.splice(h + 1, 0, "", block.trimEnd());
+  return lines.join("\n");
+}
+export const blockOf = (text) => { const b = text.indexOf(BEGIN), e = text.indexOf(END); return b >= 0 && e > b ? text.slice(b, e + END.length) + "\n" : null; };
+
+export function generateBlocks(l = load(), ruleList = rules()) {
+  const out = {};
+  for (const r of l.manifest.repos) if (r.kit === "block") out[r.name] = blockFor(r, { ...l, ruleList });
+  return out;
+}
+export function readBlocks() {
+  const dir = path.join(HERE, "blocks"), out = {};
+  if (!fs.existsSync(dir)) return out;
+  for (const f of fs.readdirSync(dir)) if (f.endsWith(".md")) out[f.slice(0, -3)] = fs.readFileSync(path.join(dir, f), "utf8");
+  return out;
+}
+
 export function generateKits(l = load(), ruleList = rules()) {
   const out = {};
   for (const r of l.manifest.repos) if (needsKit(r, l.survey)) out[r.name] = kitFor(r, { ...l, ruleList });
@@ -71,5 +118,9 @@ export function readKits() {
 if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(process.argv[1])}`).href && process.argv.includes("--write")) {
   const kits = generateKits();
   for (const [n, t] of Object.entries(kits)) { fs.mkdirSync(path.join(HERE, "kits", n), { recursive: true }); fs.writeFileSync(path.join(HERE, "kits", n, "CLAUDE.md"), t); }
+  const blocks = generateBlocks();
+  fs.mkdirSync(path.join(HERE, "blocks"), { recursive: true });
+  for (const [n, t] of Object.entries(blocks)) fs.writeFileSync(path.join(HERE, "blocks", n + ".md"), t);
+  console.log(`gen-kits: wrote ${Object.keys(blocks).length} blocks: ${Object.keys(blocks).join(", ")}`);
   console.log(`gen-kits: wrote ${Object.keys(kits).length} kits: ${Object.keys(kits).join(", ")}`);
 }

@@ -215,7 +215,8 @@
     "pharos",
     "janus"
    ],
-   "placement": "map"
+   "placement": "map",
+   "kit": "block"
   },
   {
    "name": "janus",
@@ -261,7 +262,8 @@
     "workflow": "managed",
     "gate": true,
     "gateWhy": null
-   }
+   },
+   "kit": "block"
   },
   {
    "name": "pharos",

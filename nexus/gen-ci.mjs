@@ -28,6 +28,13 @@ export function ciFor(repo) {
     `          curl -fsS --retry 3 -o "$RUNNER_TEMP/kit.md" ${KIT_URL(repo.name)}`,
     '          diff -u "$RUNNER_TEMP/kit.md" CLAUDE.md',
   );
+  if (repo.kit === "block") steps.push(
+    "      - name: the nexus block in CLAUDE.md is the generated block",
+    "        run: |",
+    `          curl -fsS --retry 3 -o "$RUNNER_TEMP/block.md" ${KIT_URL(repo.name).replace(/kits\/[^/]+\/CLAUDE\.md$/, `blocks/${repo.name}.md`)}`,
+    "          sed -n '/<!-- nexus:begin/,/<!-- nexus:end -->/p' CLAUDE.md > \"$RUNNER_TEMP/have.md\"",
+    '          diff -u "$RUNNER_TEMP/block.md" "$RUNNER_TEMP/have.md"',
+  );
   if (repo.ci.gate && repo.gate?.cmd) steps.push(`      - name: gate (${repo.gate.cmd.replace(/[:#]/g, " ")})`, "        run: |", `          ${repo.gate.cmd}`);
   else steps.push("      - name: gate is a typed gap", "        run: |", `          echo "::notice::gate is a typed gap: ${(repo.ci.gateWhy ?? repo.gate?.why ?? "not verified").replace(/"/g, "'")}. Name one in nexus/nexus.json (scores-patch-points) and regenerate."`);
   return [

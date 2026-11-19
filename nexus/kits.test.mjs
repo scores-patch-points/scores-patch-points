@@ -57,3 +57,19 @@ test("a repo whose CLAUDE.md the nexus manages keeps its kit after the survey se
   assert.ok(checkNexus({ ...l, readme, remoteKits: { ...a, pharos: null } }).some((p) => /pharos: its managed CLAUDE.md is not installed/.test(p)));
   assert.ok(checkNexus({ ...l, readme, remoteKits: { ...a, pharos: a.pharos + "x" } }).some((p) => /pharos: its CLAUDE.md differs from the generated kit/.test(p)));
 });
+
+import { blockFor, withBlock, blockOf, BEGIN, END, generateBlocks, readBlocks, rules as nexusRules } from "./gen-kits.mjs";
+test("blocks: committed blocks equal generated; inserting keeps the repo's own text byte-for-byte; re-inserting is idempotent; a hand edit inside is replaced", () => {
+  const l = load(), want = generateBlocks(l);
+  assert.deepEqual(Object.keys(want).sort(), ["khora", "penelope"]);
+  assert.deepEqual(readBlocks(), want);
+  const own = "# Own title\n\nOwn rules line 1.\n\n## Section\ntext\n";
+  const once = withBlock(own, want.khora);
+  assert.equal(withBlock(once, want.khora), once);
+  assert.equal(blockOf(once), want.khora);
+  assert.equal(once.replace(want.khora, "").replace(/\n{3,}/g, "\n\n").includes("Own rules line 1."), true);
+  const stripped = once.slice(0, once.indexOf(BEGIN)) + once.slice(once.indexOf(END) + END.length + 1);
+  assert.equal(stripped.replace(/\n+/g, "\n"), own.replace(/\n+/g, "\n"), "removing the block gives back the original text");
+  const edited = once.replace("Siblings:", "Siblings (hand edit):");
+  assert.equal(blockOf(withBlock(edited, want.khora)), want.khora);
+});
