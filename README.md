@@ -53,7 +53,8 @@ L0  THE FOLD  (the commons — the whole system)
 ├── L1  THE THREE-BODY SPINE  (constitutional: how ground is made and kept)
 │   ├── khora      Differentiate — the perceiver · ground-producer
 │   ├── janus      Relate        — the reasoner · the mark
-│   └── penelope   Generate      — the keeper · the record · the mouth
+│   ├── penelope   Generate      — the keeper · the record · the mouth
+│   └── pharos     the shared log — the medium the three share  (⚑ placement proposed)
 │
 ├── L2  THE SURFACES  (constitutional-adjacent: where the ground is shown)
 │   ├── holodeck   the fold — reading/research surface (vendors the chat app)
@@ -67,7 +68,9 @@ L0  THE FOLD  (the commons — the whole system)
 │   ├── hyphae            seal what you write
 │   ├── holodeck-proxy    no-record web gateway
 │   ├── holodeck-samples  sample source sets (readings)
-│   └── foldcode        the agent's own doorway
+│   ├── foldcode        the agent's own doorway
+│   ├── scholia           shows a machine reading as margin notes  (⚑ placement proposed)
+│   └── mnemosyne         the system's mind: one hash-chained log  (⚑ placement proposed)
 │
 ├── L3  THE ARCHIVES  (memory: frozen, read-only, superseded-not-edited)
 │   ├── khora-archive                     frozen prior khora
@@ -75,8 +78,8 @@ L0  THE FOLD  (the commons — the whole system)
 │   └── eo-teachings                      verified byte-addressed teaching snips
 │
 └── L0g THE ACCOUNTS  (the boundary of the commons — where a holon is published)
-    ├── scores-patch-points   FORMAL — publicly released work lives here only
-    └── clovenbradshaw-ctrl   DRAFT — in-progress/experimental; LEGACY, salvage only
+    ├── scores-patch-points   THE NEXUS — formal, interconnected, no wrong door
+    └── clovenbradshaw-ctrl   ITERATION — where work iterates; promoted into the nexus when its gate passes
 ```
 
 ---
@@ -125,6 +128,21 @@ ground. Each is a holon that owns one mode and **not** the other two.
   reading surface (holodeck). The mouth is never the first resort.
 - **Finds at:** `README.md`; `SYSTEM-MAP.md`; `LOOMS.md`; `TAPESTRY.md`;
   `organs/GENERATION-INVENTORY.md`; `ladder/` (the no-model boundary).
+
+### pharos — the shared log · the medium of the spine  *(⚑ placement proposed 2026-11-18, owner to confirm)*
+*`scores-patch-points/pharos` · Node 20+, built-ins only, zero dependencies*
+
+- **Does:** the one shared, append-only log (weave, watch, fold) that khora, janus and
+  penelope write to and read from, by kind and cell and never by author; the install
+  doors that wire a repo to it (`node bin/pharos.mjs install | verify | doors |
+  undo-door`: `pharos-core`, `agents-md`, and `reader-stack` behind explicit flags);
+  holds the rules khora works under (khora refuses to read without the pharos gate).
+- **Doesn't include:** reading, relating or generating (the three bodies are the
+  spine; pharos is the medium they share, not a fourth mode); anything heavier than
+  the two safe doors unless the human names the flag; writes outside the directory
+  the human named, or in the real home.
+- **Finds at:** `README.md` ("Do this", "Rules for agents", "Doors"); `bin/pharos.mjs`;
+  `lib/gate.mjs` (the gate khora checks).
 
 ---
 
@@ -267,6 +285,31 @@ another holon's job; if you need it done, assign it in the owning holon.
   control); `packages/core/src/plugin/fold.ts` (the doorway plugin),
   `packages/gui-extensions/src/fold/` (the fold UI, incl. `remember.tsx`).
 
+### scholia — shows a machine reading · the margin notes  *(⚑ placement proposed 2026-11-18, owner to confirm)*
+*`scores-patch-points/scholia`*
+
+- **Does:** renders one khora read (`readToWeft`) as one static HTML page: every word
+  tinted by class, names, pronoun bindings (confident or contested), prepositional
+  phrases, each sentence as a dependency tree and a clause nest, every top-level field
+  of the entry raw. A read appends to no log; nothing is written but the HTML.
+- **Doesn't include:** reading (it reads through khora, English only for now; point it
+  at a checkout with `--khora ../khora` or `KHORA_DIR`) or judging the read.
+- **Finds at:** `README.md`; `build.mjs`; test `KHORA_DIR=../khora npm test` (skips when
+  no khora checkout is found).
+
+### mnemosyne — the system's mind · one binary hash-chained log  *(⚑ placement proposed 2026-11-18, owner to confirm)*
+*`scores-patch-points/mnemosyne`*
+
+- **Does:** `mind.eot`: one file, one hash chain, one writer at a time (append through a
+  PR so the chain never forks), recording only the differences that make a difference
+  as what was read changed the reader's conclusions; one immutable core, the Universal
+  Declaration of Human Rights (the first records, pinned by `core.json`). Tools:
+  `node eotm-cli.mjs mind.eot` (dump) and `... verify` (check the chain); test
+  `node --test eotm.test.mjs`.
+- **Doesn't include:** a library, a record of what sources say, or a second log or
+  per-domain file (one log, many readings).
+- **Finds at:** `README.md`; `core.json`; `eotm-cli.mjs`; `eotm.test.mjs`.
+
 ---
 
 ## L3 — The archives
@@ -303,11 +346,11 @@ An assignment is only real once it names its account. One boundary rule:
 
 | Account | Boundary |
 |---|---|
-| **scores-patch-points** | The **FORMAL** publishing account. Publicly released work goes here **only**. |
-| **clovenbradshaw-ctrl** | The **DRAFT** account — in-progress, experimental, private work. **LEGACY: salvage only.** Bring what is needed into `scores-patch-points`; do not start here. |
+| **scores-patch-points** | The **NEXUS**: the formal, interconnected body of the Fold. Publicly released work goes here only, every repo is a door into the whole (**no wrong door**), and nothing lands without its gate and its record. |
+| **clovenbradshaw-ctrl** | The **ITERATION** account: where work iterates (in-progress, experimental, private drafts, apps, other projects). A thing is **promoted** into the nexus when its gate passes and its claims are on the ledger with their split labels and pinned measures. The `*-legacy` repos here are frozen: salvage only. |
 
-Before any push: check `gh auth status`. Publish under `scores-patch-points`;
-drafts under `clovenbradshaw-ctrl`.
+Before any push, check which account your credentials act as (`gh auth status`, and the git credential, which can differ). Iterate under
+`clovenbradshaw-ctrl`; publish into `scores-patch-points`.
 
 ---
 
@@ -329,7 +372,11 @@ drafts under `clovenbradshaw-ctrl`.
 | a doorway/plugin or fold-UI change to the agent | **foldcode** | the delta is the add-only doorway + its fold UI |
 | frozen session results / notes | an **archive** (L3) | memory is read-only |
 | a public release | **scores-patch-points** | the formal account |
-| in-progress / experimental work | **clovenbradshaw-ctrl** | the draft account |
+| in-progress / experimental / iterating work | **clovenbradshaw-ctrl** | the iteration account |
+| the one shared log, its install doors or its rules | **pharos** | pharos is the medium the three share |
+| a rendering of what a read returned | **scholia** | scholia renders a khora read; it reads through khora |
+| the system's hash-chained mind (`mind.eot`) or its core | **mnemosyne** | mnemosyne is the one binary log of conclusions |
+| the map, the nexus manifest, or a repo's self-description | **scores-patch-points** | the map is generated from the manifest |
 
 ## Where to find what — the ground table
 
@@ -347,6 +394,46 @@ drafts under `clovenbradshaw-ctrl`.
 | how the repos relate (vendoring direction) | `holodeck/VENDORING.md` |
 | the doors / ports | `khora/docs/PORTS.md` |
 | the generation inventory | `penelope/organs/GENERATION-INVENTORY.md` |
+| how a session learns the rules at its start | `penelope/BRIEF.md` (generated), delivered by `penelope/gym/session-brief-hook.sh` |
+| what a repo claims, with its split label, stamp and pinned measure | `penelope/experiments/zero-overlap/LEDGER.md`, `measures.jsonl` |
+| the nexus manifest and its survey | `scores-patch-points/nexus/nexus.json`, `nexus/survey.json` |
+| the shared log and its install doors | `pharos/README.md` |
+
+---
+
+## The nexus — what is true of every repo *(proposed 2026-11-18; agents propose, the record decides)*
+
+A repo is part of the nexus, not merely beside it, when:
+
+1. **It declares itself.** One manifest entry (`nexus/nexus.json`): its role, what it does **not** include, its doors, its gate, its siblings. This map and the repo's `CLAUDE.md` are generated from the manifest and the cards, and a test fails when they drift.
+2. **It can say what it is, by command:** its commit, its siblings' commits, which priors and data it has, its gate state, its known red, and its claims with their labels.
+3. **Its doors are declared and tested.** A missing sibling, prior or dataset is a typed refusal that says how to get it, never a silent skip.
+4. **It has a gate that runs on every push and can only get less red** (penelope's ratchet is the model). A repo with no CI is a typed gap in the table below.
+5. **Its seams are contracts.** The mark kinds khora, janus and penelope write into pharos have one registry, and each repo's tests check against it.
+6. **It iterates before it enters.** Work iterates under `clovenbradshaw-ctrl`; it is promoted here when its gate passes and its claims are on a ledger (split label, stamp, pinned measure).
+7. **Every result is stamped with its environment:** repo commit, sibling commits, prior hashes.
+
+Where the nexus stands: a read-only survey of the public repos on 2026-11-18 (`nexus/survey.json`). `?` = not surveyed; `typed gap` = the manifest names no gate or door yet, which is the honest state, not a failure to look. Private repos are not visible to the survey.
+
+| repo | CLAUDE.md | BRIEF | CI | gate named | main protected | door declared |
+|---|---|---|---|---|---|---|
+| `khora` | yes | NO | 3 | `npm test` | NO | 2 |
+| `janus` | NO | NO | 0 | typed gap | NO | typed gap |
+| `penelope` | yes | yes | 0 | `npm test` | NO | 2 |
+| `pharos` | NO | NO | 0 | `npm test` | NO | 1 |
+| `holodeck` | NO | NO | 0 | typed gap | NO | typed gap |
+| `the-fold` | NO | NO | 3 | `npm test` | NO | typed gap |
+| `heimdall` | NO | NO | 1 | `npm test` | NO | typed gap |
+| `Alhazen` | NO | NO | 0 | typed gap | NO | typed gap |
+| `Zenodotus` | NO | NO | 1 | typed gap | NO | typed gap |
+| `eodb` | NO | NO | 1 | typed gap | NO | typed gap |
+| `hyphae` | NO | NO | 3 | typed gap | NO | typed gap |
+| `holodeck-proxy` | NO | NO | 0 | typed gap | NO | typed gap |
+| `holodeck-samples` | NO | NO | 0 | typed gap | NO | typed gap |
+| `foldcode` | NO | NO | 29 | typed gap | NO | typed gap |
+| `scholia` | NO | NO | 0 | `KHORA_DIR=../khora npm test` | NO | 1 |
+| `mnemosyne` | NO | NO | 1 | `node --test eotm.test.mjs` | NO | 1 |
+| `scores-patch-points` | NO | NO | 0 | `npm test` | NO | 2 |
 
 ---
 
@@ -370,6 +457,9 @@ drafts under `clovenbradshaw-ctrl`.
    that did not converge.
 7. **A typed gap beats a guess.** An unknown repo, account, or role is stated as
    a gap — never filled silently.
+8. **No wrong door.** Whichever repo you enter, you can learn the whole from it:
+   read its `CLAUDE.md`, run its gate, follow the map. A missing sibling, prior or
+   dataset is a typed refusal that says how to get it — never a silent degrade.
 
 *This README is the front door of the commons. It is a holon too: it **does**
 assign every repo its level, boundary, and account; it **does not include** the

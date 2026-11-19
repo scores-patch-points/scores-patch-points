@@ -1,0 +1,160 @@
+{
+ "schema": "NexusSurvey@1",
+ "date": "2026-11-18",
+ "method": "gh api, read-only, default branch of each public scores-patch-points repo",
+ "repos": {
+  "penelope": {
+   "defaultBranch": "main",
+   "claudeMd": true,
+   "agentsMd": false,
+   "readme": true,
+   "brief": true,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "khora": {
+   "defaultBranch": "main",
+   "claudeMd": true,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 3,
+   "mainProtected": false
+  },
+  "pharos": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "scholia": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "janus": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "heimdall": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 1,
+   "mainProtected": false
+  },
+  "the-fold": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 3,
+   "mainProtected": false
+  },
+  "foldcode": {
+   "defaultBranch": "fold",
+   "claudeMd": false,
+   "agentsMd": true,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 29,
+   "mainProtected": false
+  },
+  "holodeck": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "Zenodotus": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 1,
+   "mainProtected": false
+  },
+  "holodeck-samples": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "hyphae": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 3,
+   "mainProtected": false
+  },
+  "mnemosyne": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 1,
+   "mainProtected": false
+  },
+  "Alhazen": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "holodeck-proxy": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  },
+  "eodb": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 1,
+   "mainProtected": false
+  },
+  "scores-patch-points": {
+   "defaultBranch": "main",
+   "claudeMd": false,
+   "agentsMd": false,
+   "readme": true,
+   "brief": false,
+   "ciWorkflows": 0,
+   "mainProtected": false
+  }
+ }
+}

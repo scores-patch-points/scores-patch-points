@@ -1,0 +1,10 @@
+{
+  "name": "scores-patch-points-map",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test nexus/nexus.test.mjs && node nexus/check-nexus.mjs",
+    "map": "node nexus/gen-map.mjs --write",
+    "check:live": "node nexus/check-nexus.mjs --live"
+  }
+}

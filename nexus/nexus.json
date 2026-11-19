@@ -1,0 +1,498 @@
+{
+ "schema": "Nexus@1",
+ "tables": {
+  "accounts": {
+   "header": [
+    "Account",
+    "Boundary"
+   ],
+   "sep": "|---|---|",
+   "rows": [
+    [
+     "**scores-patch-points**",
+     "The **NEXUS**: the formal, interconnected body of the Fold. Publicly released work goes here only, every repo is a door into the whole (**no wrong door**), and nothing lands without its gate and its record."
+    ],
+    [
+     "**clovenbradshaw-ctrl**",
+     "The **ITERATION** account: where work iterates (in-progress, experimental, private drafts, apps, other projects). A thing is **promoted** into the nexus when its gate passes and its claims are on the ledger with their split labels and pinned measures. The `*-legacy` repos here are frozen: salvage only."
+    ]
+   ]
+  },
+  "assignment": {
+   "header": [
+    "When you have…",
+    "Put it in…",
+    "Because its boundary includes it"
+   ],
+   "sep": "|---|---|---|",
+   "rows": [
+    [
+     "a change to reading / perception / ground",
+     "**khora**",
+     "khora Differentiates"
+    ],
+    [
+     "a rule for what follows from the record",
+     "**janus**",
+     "janus Relates"
+    ],
+    [
+     "an artifact generator, the mouth, the record",
+     "**penelope** (enter via `POST /api/weave`)",
+     "penelope Generates"
+    ],
+    [
+     "a change to the reading/research surface",
+     "**holodeck**",
+     "the surface is the consumer"
+    ],
+    [
+     "a change to the chat app",
+     "**the-fold**, then re-vendor into holodeck",
+     "the app is the source"
+    ],
+    [
+     "a corpus text / source set",
+     "**Zenodotus**",
+     "the corpus is source, not reader"
+    ],
+    [
+     "an optics / OCR / document-image rule",
+     "**Alhazen**",
+     "the optics pipeline"
+    ],
+    [
+     "the event / data layer",
+     "**eodb**",
+     "the backend-free event layer"
+    ],
+    [
+     "sealed-writing / extension work",
+     "**hyphae**",
+     "seal what you write"
+    ],
+    [
+     "a web fetch/search gateway change",
+     "**holodeck-proxy**",
+     "the no-record gateway"
+    ],
+    [
+     "sample readings for a demo",
+     "**holodeck-samples**",
+     "it carries the readings"
+    ],
+    [
+     "a doorway/plugin or fold-UI change to the agent",
+     "**foldcode**",
+     "the delta is the add-only doorway + its fold UI"
+    ],
+    [
+     "frozen session results / notes",
+     "an **archive** (L3)",
+     "memory is read-only"
+    ],
+    [
+     "a public release",
+     "**scores-patch-points**",
+     "the formal account"
+    ],
+    [
+     "in-progress / experimental / iterating work",
+     "**clovenbradshaw-ctrl**",
+     "the iteration account"
+    ],
+    [
+     "the one shared log, its install doors or its rules",
+     "**pharos**",
+     "pharos is the medium the three share"
+    ],
+    [
+     "a rendering of what a read returned",
+     "**scholia**",
+     "scholia renders a khora read; it reads through khora"
+    ],
+    [
+     "the system's hash-chained mind (`mind.eot`) or its core",
+     "**mnemosyne**",
+     "mnemosyne is the one binary log of conclusions"
+    ],
+    [
+     "the map, the nexus manifest, or a repo's self-description",
+     "**scores-patch-points**",
+     "the map is generated from the manifest"
+    ]
+   ]
+  },
+  "ground": {
+   "header": [
+    "You need…",
+    "Read…"
+   ],
+   "sep": "|---|---|",
+   "rows": [
+    [
+     "the whole system, in one breath",
+     "`khora/KHORA.md`"
+    ],
+    [
+     "the law / constitution",
+     "`holodeck/docs/FOLD-CONSTITUTION.md`"
+    ],
+    [
+     "the framework and the ethos",
+     "`holodeck/docs/HOLODECK-FRAMEWORK.md`, `CONSTITUTIVE-ETHOS-SPEC.md`"
+    ],
+    [
+     "standing reading rules (agent side)",
+     "`~/.config/opencode/content-rules.md`"
+    ],
+    [
+     "standing reading rules (surface side)",
+     "`khora/content-rules.json` — served at `GET /content-rules`"
+    ],
+    [
+     "the agent policy (swarm protocol)",
+     "`~/.config/opencode/AGENTS.md`"
+    ],
+    [
+     "facts about the operator and their world",
+     "`~/.config/opencode/user-memory.md` ↔ `holodeck/user-memory.json`"
+    ],
+    [
+     "what the system may read on demand, and the prompts attached to an ask",
+     "`~/.config/opencode/user-refs.md`, `~/.config/opencode/system-prompts.json` (agent side; written from the Remember window, injected only when an ask bears on them — **no surface mirror yet**)"
+    ],
+    [
+     "derived rules for surface material",
+     "`khora/heimdall-derived-rules.json`"
+    ],
+    [
+     "how the repos relate (vendoring direction)",
+     "`holodeck/VENDORING.md`"
+    ],
+    [
+     "the doors / ports",
+     "`khora/docs/PORTS.md`"
+    ],
+    [
+     "the generation inventory",
+     "`penelope/organs/GENERATION-INVENTORY.md`"
+    ],
+    [
+     "how a session learns the rules at its start",
+     "`penelope/BRIEF.md` (generated), delivered by `penelope/gym/session-brief-hook.sh`"
+    ],
+    [
+     "what a repo claims, with its split label, stamp and pinned measure",
+     "`penelope/experiments/zero-overlap/LEDGER.md`, `measures.jsonl`"
+    ],
+    [
+     "the nexus manifest and its survey",
+     "`scores-patch-points/nexus/nexus.json`, `nexus/survey.json`"
+    ],
+    [
+     "the shared log and its install doors",
+     "`pharos/README.md`"
+    ]
+   ]
+  }
+ },
+ "repos": [
+  {
+   "name": "khora",
+   "account": "scores-patch-points",
+   "level": "L1",
+   "summary": "Differentiate: the perceiver, ground-producer",
+   "doors": [
+    "native/reading.js readDocument",
+    "native/the-fold/read-process.mjs readToWeft"
+   ],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [
+    "pharos",
+    "janus"
+   ],
+   "placement": "map"
+  },
+  {
+   "name": "janus",
+   "account": "scores-patch-points",
+   "level": "L1",
+   "summary": "Relate: the reasoner, the mark",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "package.json has no scripts"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "penelope",
+   "account": "scores-patch-points",
+   "level": "L1",
+   "summary": "Generate: the keeper, the record, the mouth",
+   "doors": [
+    "POST /api/weave",
+    "BRIEF.md (session brief)"
+   ],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [
+    "khora",
+    "janus",
+    "Zenodotus",
+    "heimdall",
+    "pharos"
+   ],
+   "placement": "map"
+  },
+  {
+   "name": "pharos",
+   "account": "scores-patch-points",
+   "level": "L1",
+   "summary": "the shared log, the medium the three share",
+   "doors": [
+    "node bin/pharos.mjs install | verify | doors"
+   ],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [],
+   "placement": "proposed"
+  },
+  {
+   "name": "holodeck",
+   "account": "scores-patch-points",
+   "level": "L2-surface",
+   "summary": "the reading/research surface",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [
+    "the-fold"
+   ],
+   "placement": "map"
+  },
+  {
+   "name": "the-fold",
+   "account": "scores-patch-points",
+   "level": "L2-surface",
+   "summary": "the chat app, the source holodeck vendors",
+   "doors": [],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "heimdall",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "distributed local inference",
+   "doors": [],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "Alhazen",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "the optics pipeline",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "Zenodotus",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "the living corpus",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "eodb",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "the event layer",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "hyphae",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "seal what you write",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "holodeck-proxy",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "no-record web gateway",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "holodeck-samples",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "sample source sets",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "foldcode",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "the agent's own doorway",
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "not verified on 2026-11-18"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "scholia",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "shows a machine reading",
+   "doors": [
+    "node build.mjs --khora ../khora"
+   ],
+   "gate": {
+    "cmd": "KHORA_DIR=../khora npm test",
+    "why": null
+   },
+   "siblings": [
+    "khora"
+   ],
+   "placement": "proposed"
+  },
+  {
+   "name": "mnemosyne",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "the system's mind: one hash-chained log",
+   "doors": [
+    "node eotm-cli.mjs mind.eot [verify]"
+   ],
+   "gate": {
+    "cmd": "node --test eotm.test.mjs",
+    "why": null
+   },
+   "siblings": [],
+   "placement": "proposed"
+  },
+  {
+   "name": "scores-patch-points",
+   "account": "scores-patch-points",
+   "level": "map",
+   "summary": "this map: the front door of the commons, generated from the manifest",
+   "doors": [
+    "README.md",
+    "nexus/nexus.json"
+   ],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "khora-archive",
+   "account": "scores-patch-points",
+   "level": "L3",
+   "summary": "frozen prior khora",
+   "private": true,
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "archive: read-only"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "khora-polyglot-session-2026-10-05",
+   "account": "scores-patch-points",
+   "level": "L3",
+   "summary": "results, notes and design docs of the polyglot session",
+   "private": true,
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "archive: read-only"
+   },
+   "siblings": [],
+   "placement": "map"
+  },
+  {
+   "name": "eo-teachings",
+   "account": "scores-patch-points",
+   "level": "L3",
+   "summary": "verified byte-addressed teaching snips",
+   "private": true,
+   "doors": [],
+   "gate": {
+    "cmd": null,
+    "why": "archive: read-only"
+   },
+   "siblings": [],
+   "placement": "map"
+  }
+ ],
+ "updated": "2026-11-18",
+ "accounts": {
+  "scores-patch-points": "THE NEXUS",
+  "clovenbradshaw-ctrl": "ITERATION"
+ }
+}
