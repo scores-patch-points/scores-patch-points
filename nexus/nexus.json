@@ -229,7 +229,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "package.json has no scripts"
+   }
   },
   {
    "name": "penelope",
@@ -251,7 +256,12 @@
     "heimdall",
     "pharos"
    ],
-   "placement": "map"
+   "placement": "map",
+   "ci": {
+    "workflow": "managed",
+    "gate": true,
+    "gateWhy": null
+   }
   },
   {
    "name": "pharos",
@@ -267,7 +277,12 @@
    },
    "siblings": [],
    "placement": "proposed",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": true,
+    "gateWhy": null
+   }
   },
   {
    "name": "holodeck",
@@ -283,7 +298,12 @@
     "the-fold"
    ],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "the-fold",
@@ -297,7 +317,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "heimdall",
@@ -311,7 +336,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "Alhazen",
@@ -325,7 +355,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "Zenodotus",
@@ -339,7 +374,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "eodb",
@@ -353,7 +393,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "hyphae",
@@ -367,7 +412,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "holodeck-proxy",
@@ -381,7 +431,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "holodeck-samples",
@@ -395,7 +450,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "foldcode",
@@ -409,7 +469,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "not verified in a clean checkout"
+   }
   },
   {
    "name": "scholia",
@@ -427,7 +492,12 @@
     "khora"
    ],
    "placement": "proposed",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "its test skips itself without a khora checkout, which CI does not provide yet"
+   }
   },
   {
    "name": "mnemosyne",
@@ -443,7 +513,12 @@
    },
    "siblings": [],
    "placement": "proposed",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": true,
+    "gateWhy": null
+   }
   },
   {
    "name": "scores-patch-points",
@@ -460,7 +535,12 @@
    },
    "siblings": [],
    "placement": "map",
-   "kit": "managed"
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": true,
+    "gateWhy": null
+   }
   },
   {
    "name": "khora-archive",

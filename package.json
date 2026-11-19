@@ -3,10 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test nexus/nexus.test.mjs nexus/kits.test.mjs && node nexus/check-nexus.mjs",
+    "test": "node --test nexus/nexus.test.mjs nexus/kits.test.mjs nexus/ci.test.mjs && node nexus/check-nexus.mjs",
     "map": "node nexus/gen-map.mjs --write",
     "check:live": "node nexus/check-nexus.mjs --live",
     "kits": "node nexus/gen-kits.mjs --write",
-    "kits:plan": "node nexus/install-kits.mjs"
+    "kits:plan": "node nexus/install-kits.mjs",
+    "ci:gen": "node nexus/gen-ci.mjs --write",
+    "ci:plan": "node nexus/install-kits.mjs --what ci"
   }
 }
