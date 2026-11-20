@@ -53,3 +53,8 @@ test("every managed repo's workflow runs the canonical text-regex ratchet (nexus
   assert.equal(addedHits("organs/a.mjs", "const m = q.match(/where.*live/i);").length, 1, "the canonical detector flags a language regex");
   assert.equal(addedHits("organs/a.mjs", "const m = q.match(/\\d+/); // regex-ok: a page number").length, 0);
 });
+
+test("a generated workflow is valid YAML where it matters: no step name holds a colon-space (it turns a plain scalar into a mapping and GitHub refuses the whole file)", () => {
+  const l = load();
+  for (const r of l.manifest.repos.filter((x) => x.ci?.workflow === "managed")) for (const m of ciFor(r).matchAll(/^ +- name: (.*)$/gm)) assert.ok(!m[1].includes(": ") && !m[1].includes(" #"), `${r.name}: step name ${JSON.stringify(m[1])}`);
+});

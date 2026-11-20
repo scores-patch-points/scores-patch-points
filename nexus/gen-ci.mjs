@@ -38,7 +38,7 @@ export function ciFor(repo) {
     '          diff -u "$RUNNER_TEMP/block.md" "$RUNNER_TEMP/have.md"',
   );
   steps.push(
-    "      - name: language is read by the reader, not a pattern (nexus rule 8: the text-regex ratchet)",
+    "      - name: language is read by the reader, not a pattern (nexus rule 8, the text-regex ratchet)",
     "        run: |",
     `          curl -fsS --retry 3 -o .nexus-text-regex-ratchet.mjs ${GUARD_URL("text-regex-ratchet.mjs")}`,
     "          if [ -f gym/text-regex-baseline.jsonl ] || [ -f text-regex-baseline.jsonl ]; then node .nexus-text-regex-ratchet.mjs; else",
