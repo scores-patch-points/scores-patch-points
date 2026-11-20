@@ -523,6 +523,30 @@
    }
   },
   {
+   "name": "proteus",
+   "account": "scores-patch-points",
+   "level": "L2-satellite",
+   "summary": "makes projected files (the virtual mp4 of an edit) from what other repos wrote to the pharos",
+   "doors": [
+    "node bin/proteus.mjs record | check | status | sweep",
+    "node <pharos>/bin/pharos.mjs verify pharos-core --target door"
+   ],
+   "gate": {
+    "cmd": "npm test",
+    "why": null
+   },
+   "siblings": [
+    "pharos"
+   ],
+   "placement": "proposed",
+   "kit": "managed",
+   "ci": {
+    "workflow": "managed",
+    "gate": false,
+    "gateWhy": "the tests need ffmpeg and the pharos repo beside this one, so CI runs only the portable subset; the full gate (16 tests) is run locally"
+   }
+  },
+  {
    "name": "scores-patch-points",
    "account": "scores-patch-points",
    "level": "map",

@@ -70,7 +70,8 @@ L0  THE FOLD  (the commons — the whole system)
 │   ├── holodeck-samples  sample source sets (readings)
 │   ├── foldcode        the agent's own doorway
 │   ├── scholia           shows a machine reading as margin notes  (⚑ placement proposed)
-│   └── mnemosyne         the system's mind: one hash-chained log  (⚑ placement proposed)
+│   ├── mnemosyne         the system's mind: one hash-chained log  (⚑ placement proposed)
+│   └── proteus           makes projected files (the virtual mp4) from pharos placements  (⚑ placement proposed)
 │
 ├── L3  THE ARCHIVES  (memory: frozen, read-only, superseded-not-edited)
 │   ├── khora-archive                     frozen prior khora
@@ -120,6 +121,7 @@ another holon's job; if you need it done, assign it in the owning holon.
 {{card:foldcode}}
 {{card:scholia}}
 {{card:mnemosyne}}
+{{card:proteus}}
 ---
 
 ## L3 — The archives
