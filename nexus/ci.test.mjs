@@ -45,3 +45,11 @@ test("drift is caught: a hand-edited workflow, a missing one, and a gate flagged
   const m = clone(f.manifest); m.repos.find((r) => r.name === "janus").ci.gate = true;
   assert.ok(checkNexus({ ...f, manifest: m }).some((p) => /janus: ci.gate is true but the manifest names no gate command/.test(p)));
 });
+
+test("every managed repo's workflow runs the canonical text-regex ratchet (nexus rule 8); a repo with no baseline is told it checked nothing", async () => {
+  const l = load();
+  for (const r of l.manifest.repos.filter((x) => x.ci?.workflow === "managed")) { const y = ciFor(r); assert.match(y, /nexus\/guards\/text-regex-ratchet\.mjs/); assert.match(y, /node \.nexus-text-regex-ratchet\.mjs/); assert.match(y, /checked NOTHING here/); }
+  const { addedHits } = await import("./guards/text-regex-ratchet.mjs");
+  assert.equal(addedHits("organs/a.mjs", "const m = q.match(/where.*live/i);").length, 1, "the canonical detector flags a language regex");
+  assert.equal(addedHits("organs/a.mjs", "const m = q.match(/\\d+/); // regex-ok: a page number").length, 0);
+});

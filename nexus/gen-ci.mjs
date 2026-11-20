@@ -15,6 +15,8 @@ import { load } from "./gen-map.mjs";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const KIT_URL = (name) => `https://raw.githubusercontent.com/scores-patch-points/scores-patch-points/main/nexus/kits/${name}/CLAUDE.md`;
 
+export const GUARD_URL = (file) => `https://raw.githubusercontent.com/scores-patch-points/scores-patch-points/main/nexus/guards/${file}`;
+
 export function ciFor(repo) {
   const steps = [
     "      - uses: actions/checkout@v4",
@@ -34,6 +36,13 @@ export function ciFor(repo) {
     `          curl -fsS --retry 3 -o "$RUNNER_TEMP/block.md" ${KIT_URL(repo.name).replace(/kits\/[^/]+\/CLAUDE\.md$/, `blocks/${repo.name}.md`)}`,
     "          sed -n '/<!-- nexus:begin/,/<!-- nexus:end -->/p' CLAUDE.md > \"$RUNNER_TEMP/have.md\"",
     '          diff -u "$RUNNER_TEMP/block.md" "$RUNNER_TEMP/have.md"',
+  );
+  steps.push(
+    "      - name: language is read by the reader, not a pattern (nexus rule 8: the text-regex ratchet)",
+    "        run: |",
+    `          curl -fsS --retry 3 -o .nexus-text-regex-ratchet.mjs ${GUARD_URL("text-regex-ratchet.mjs")}`,
+    "          if [ -f gym/text-regex-baseline.jsonl ] || [ -f text-regex-baseline.jsonl ]; then node .nexus-text-regex-ratchet.mjs; else",
+    '            echo "::notice::the text-regex ratchet checked NOTHING here: this repo has no text-regex-baseline.jsonl. Copy nexus/guards/text-regex-ratchet.mjs, run it with --record --why \'initial baseline\', and commit the baseline."; fi',
   );
   if (repo.ci.gate && repo.gate?.cmd) steps.push(`      - name: gate (${repo.gate.cmd.replace(/[:#]/g, " ")})`, "        run: |", `          ${repo.gate.cmd}`);
   else steps.push("      - name: gate is a typed gap", "        run: |", `          echo "::notice::gate is a typed gap: ${(repo.ci.gateWhy ?? repo.gate?.why ?? "not verified").replace(/"/g, "'")}. Name one in nexus/nexus.json (scores-patch-points) and regenerate."`);
